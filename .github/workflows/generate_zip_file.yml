@@ -67,7 +67,7 @@ jobs:
         rm -rf *
         mv /home/temp/flasher /home/recovery_rom/flasher
         cd /home/recovery_rom/flasher/images
-        rm -rf preloader.img preloader_ck7n_h894.img preloader_emmc.img preloader_ufs.img userdata.img
+        rm -rf preloader.img preloader_ck7n_h894.img preloader_emmc.img preloader_ufs.img userdata.img empty
 
     - name: Compressing ROM
       run: |
