@@ -92,6 +92,7 @@ jobs:
     - name: Compressing ROM
       run: |
         cd /home/recovery_rom/flasher
+        rm -rf generate_zip.sh
         file_name="CK7n_recovery_flashable_rom_A13"
         zip -r $file_name *
         mv $file_name /home/recovery_rom
