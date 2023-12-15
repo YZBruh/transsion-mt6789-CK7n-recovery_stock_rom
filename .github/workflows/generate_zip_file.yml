@@ -1,0 +1,86 @@
+name: Create Recovery ROM
+
+on:
+  workflow_dispatch:
+    inputs:
+      EMPTY:
+        description: 'Empty'
+        required: false
+        default: ''
+
+jobs:
+  build:
+    name: Auto Firmware Dumper
+    if: github.event.repository.owner.id == github.event.sender.id
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Check Out
+      uses: actions/checkout@v3
+
+    - name: Clear the environment
+      uses: rokibhasansagar/slimhub_actions@main
+
+    - name: Set Swap Space
+      uses: pierotofy/set-swap-space@master
+      with:
+       swap-size-gb: 12
+
+    - name: Updating packages
+      run: |
+        sudo apt update
+        sudo apt upgrade -y
+        sudo apt install curl -y
+
+    - name: Setting up environment
+      run: |
+        sudo cd /home
+        sudo mkdir mode=777 recovery_rom
+        cd recovery_rom
+
+    - name: Downloading and extracting stock ROM
+      run: |
+        mkdir stock
+        cd stock
+        wget
+        unzip *.zip
+        rm -rf *.zip
+
+    - name: Downloading flasher source
+      run: |
+        cd /home/recovery_rom
+        git clone https://github.com/YZBruh/transsion-mt6789-CK7n-recovery_stock_rom -b master
+        mv transsion* flasher
+
+    - name: Moving files
+      run: |
+        cd stock/*/Firmware
+        source_dir=$(pwd)
+        destination_dir="/home/recovery_rom/flasher/images"
+        find "$source_dir" -type f -name "*.img" -exec mv {} "$destination_dir" \;
+        unset source_dir
+        unset destination_dir
+        cd /home/recovery_rom
+        sudo mkdir mode=777 /home/temp
+        mv flasher /home/temp
+        rm -rf *
+        mv /home/temp/flasher /home/recovery_rom/flasher
+        cd /home/recovery_rom/flasher/images
+        rm -rf preloader.img preloader_ck7n_h894.img preloader_emmc.img preloader_ufs.img userdata.img
+
+    - name: Compressing ROM
+      run: |
+        cd /home/recovery_rom/flasher
+        file_name="CK7n_recovery_flashable_rom_A13"
+        zip $file_name *
+        mv $file_name /home/recovery_rom
+        cd /home/recovery_rom
+        rm -rf flasher
+
+    - name: Uploading ROM transfer.sh
+      run: |
+        curl --upload-file ./"$file_name" https://transfer.sh/"$file_name"
+        echo "Upload finished!"
+        echo "Succesfull!"
+        unset file_name
