@@ -73,7 +73,7 @@ jobs:
       run: |
         cd /home/recovery_rom/flasher
         file_name="CK7n_recovery_flashable_rom_A13"
-        zip $file_name *
+        zip -r $file_name *
         mv $file_name /home/recovery_rom
         cd /home/recovery_rom
         rm -rf flasher
