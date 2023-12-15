@@ -31,7 +31,7 @@ jobs:
       run: |
         sudo apt update
         sudo apt upgrade -y
-        sudo apt install curl -y
+        sudo apt install curl python3 -y
 
     - name: Setting up environment
       run: |
@@ -56,6 +56,26 @@ jobs:
     - name: Moving files
       run: |
         cd stock/*/Firmware
+        wget https://raw.githubusercontent.com/unix3dgforce/lpunpack/master/lpunpack.py
+        python3 lpunpack.py super.img super
+        rm -rf super.unsparse.img super.img
+        rm -rf vendor_dlk*
+        dir=$(pwd)
+        cd super
+        mv odm_dlkm_a.img $dir/odm_dlkm_a.img
+        mv odm_dlkm_b.img $dir/odm_dlkm_b.img
+        mv vendor_dlkm_a.img $dir/vendor_dlkm_a.img
+        mv vendor_dlkm_b.img $dir/vendor_dlkm_b.img
+        mv product_a.img $dir/product_a.img
+        mv product_b.img $dir/product_b.img
+        mv system_a.img $dir/system_a.img
+        mv system_b.img $dir/system_b.img
+        mv system_ext_a.img $dir/system_ext_a.img
+        mv system_ext_b.img $dir/system_ext_b.img
+        mv vendor_a.img $dir/vendor_a.img
+        mv vendor_b.img $dir/vendor_b.img
+        unset dir
+        cd /home/recovery_rom/stock/*/Firmware
         source_dir=$(pwd)
         destination_dir="/home/recovery_rom/flasher/images"
         find "$source_dir" -type f -name "*.img" -exec mv {} "$destination_dir" \;
