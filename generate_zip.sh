@@ -32,6 +32,7 @@ unset compress
 # Super image unpacker function
 sparse_super() {
 echo "Sparsing super image..."
+cp $DIR/lpunpack/lpunpack.py $DIR/recovery_rom/stock/*
 sparse=$(python3 lpunpack.py super.img super)
 if [[ $sparse ]]; then
    echo
@@ -75,15 +76,11 @@ if [ $pass == "y" ]; then
      apt update
      apt upgrade -y
      pkg install curl python3 zip git -y
-     wget https://raw.githubusercontent.com/unix3dgforce/lpunpack/master/lpunpack.py
-     chmod 777 lpunpack.py
    ;;
    x86_64|i386)
      sudo apt update
      sudo apt upgrade -y
      sudo apt install curl python3 zip git -y
-     wget https://raw.githubusercontent.com/unix3dgforce/lpunpack/master/lpunpack.py
-     chmod 777 lpunpack.py
    ;;
    *)
      echo "Architecture could not be determined!"
