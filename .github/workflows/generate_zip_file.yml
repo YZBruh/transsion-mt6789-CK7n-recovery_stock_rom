@@ -74,8 +74,8 @@ jobs:
         mv system_ext_b.img $dir/system_ext_b.img
         mv vendor_a.img $dir/vendor_a.img
         mv vendor_b.img $dir/vendor_b.img
+        cd $dir
         unset dir
-        cd /home/recovery_rom/stock/*
         source_dir=$(pwd)
         destination_dir="/home/recovery_rom/flasher/images"
         find "$source_dir" -type f -name "*.img" -exec mv {} "$destination_dir" \;
@@ -93,6 +93,7 @@ jobs:
       run: |
         cd /home/recovery_rom/flasher
         rm -rf generate_zip.sh
+        rm -rf lpunpack
         file_name="CK7n_recovery_flashable_rom_A13"
         zip -r $file_name *
         mv $file_name /home/recovery_rom
