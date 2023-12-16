@@ -43,7 +43,7 @@ jobs:
       run: |
         mkdir stock
         cd stock
-        wget
+        wget https://mor1.androidfilehost.com/dl/eNODIzeVavWO08qdxomftQ/1702795391/4279422670115727738/%5BHovatek%5D_Tecno_Camon_20_Pro_%28CK7n-H894ABC-T-GL-230111V246%29.zip)
         unzip *.zip
         rm -rf *.zip
 
@@ -55,7 +55,7 @@ jobs:
 
     - name: Moving files
       run: |
-        cd stock/*/Firmware
+        cd stock/*
         wget https://raw.githubusercontent.com/unix3dgforce/lpunpack/master/lpunpack.py
         python3 lpunpack.py super.img super
         rm -rf super.unsparse.img super.img
@@ -75,7 +75,7 @@ jobs:
         mv vendor_a.img $dir/vendor_a.img
         mv vendor_b.img $dir/vendor_b.img
         unset dir
-        cd /home/recovery_rom/stock/*/Firmware
+        cd /home/recovery_rom/stock/*
         source_dir=$(pwd)
         destination_dir="/home/recovery_rom/flasher/images"
         find "$source_dir" -type f -name "*.img" -exec mv {} "$destination_dir" \;
