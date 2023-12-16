@@ -148,4 +148,7 @@ cd images
 rm -rf *
 cd $DIR
 echo "SUCCESFULL!"
-echo "ZİP file:"
+echo "ZİP file: $DIR/"$file_name"
+cleanup
+
+# end of file
