@@ -32,8 +32,16 @@ unset compress
 # Super image unpacker function
 sparse_super() {
 echo "Sparsing super image..."
-cp $DIR/lpunpack/lpunpack.py $DIR/recovery_rom/stock/*
-sparse=$(python3 lpunpack.py super.img super)
+case $ARCH in
+   armv7l|aarch64)
+     rm -rf $DIR/lpunpack
+     sparse=$(lpunpack super.img super)
+   ;;
+   x86_64|i386)
+     cp $DIR/lpunpack/lpunpack.py $DIR/recovery_rom/stock/*
+     sparse=$(python3 lpunpack.py super.img super)
+     rm -rf $DIR/lpunpack
+esac
 if [[ $sparse ]]; then
    echo
 else
@@ -75,7 +83,7 @@ if [ $pass == "y" ]; then
      pkg upgrade -y
      apt update
      apt upgrade -y
-     pkg install curl python3 zip git -y
+     pkg install curl zip unzip git android-tools -y
    ;;
    x86_64|i386)
      sudo apt update
@@ -125,8 +133,6 @@ rm -rf preloader.img preloader_ck7n_h894.img preloader_emmc.img preloader_ufs.im
 # Compress recovery ROM
 echo "Compressing..."
 cd $DIR
-rm -rf .github
-rm -rf lpunpack
 rm -rf $DIR/images/vendor_dlkm.img
 rm -rf $DIR/images/odm_dlkm.img
 rm -rf $DIR/images/vendor_boot-debug.img
