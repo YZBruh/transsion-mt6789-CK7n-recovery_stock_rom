@@ -95,14 +95,14 @@ jobs:
         rm -rf generate_zip.sh
         rm -rf lpunpack
         file_name="CK7n_recovery_flashable_rom_A13"
-        zip -r $file_name *
-        mv $file_name /home/recovery_rom
+        zip -r "$file_name" *
+        mv "$file_name".zip /home/recovery_rom
         cd /home/recovery_rom
         rm -rf flasher
 
     - name: Uploading ROM transfer.sh
       run: |
-        curl --upload-file ./"$file_name" https://transfer.sh/"$file_name"
+        curl --upload-file ./"$file_name".zip https://transfer.sh/"$file_name".zip
         echo "Upload finished!"
         echo "Succesfull!"
         unset file_name
