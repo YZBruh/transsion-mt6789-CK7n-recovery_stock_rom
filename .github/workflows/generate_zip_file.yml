@@ -43,7 +43,7 @@ jobs:
       run: |
         mkdir stock
         cd stock
-        wget https://mor1.androidfilehost.com/dl/eNODIzeVavWO08qdxomftQ/1702795391/4279422670115727738/%5BHovatek%5D_Tecno_Camon_20_Pro_%28CK7n-H894ABC-T-GL-230111V246%29.zip)
+        wget https://mor1.androidfilehost.com/dl/eNODIzeVavWO08qdxomftQ/1702795391/4279422670115727738/%5BHovatek%5D_Tecno_Camon_20_Pro_%28CK7n-H894ABC-T-GL-230111V246%29.zip
         unzip *.zip
         rm -rf *.zip
 
