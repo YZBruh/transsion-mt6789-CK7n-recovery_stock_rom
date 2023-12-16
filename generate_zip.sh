@@ -134,6 +134,7 @@ rm -rf preloader.img preloader_ck7n_h894.img preloader_emmc.img preloader_ufs.im
 # Compress recovery ROM
 echo "Compressing..."
 cd $DIR
+rm -rf .github
 file_name="CK7n_recovery_flashable_rom_A13"
 compress=$(zip -r $file_name *)
 if [[ $compress ]]; then
