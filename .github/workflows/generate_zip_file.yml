@@ -97,6 +97,7 @@ jobs:
         rm -rf images/vendor_dlkm.img
         rm -rf images/odm_dlkm.img
         rm -rf images/vendor_boot-debug.img
+        rm -rf images/super_empty.img
         file_name="CK7n_recovery_flashable_rom_A13"
         zip -r "$file_name" *
         mv "$file_name".zip /home/recovery_rom
