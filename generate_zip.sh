@@ -2,9 +2,11 @@
 # Transsion MT6789 Recovery Stock ROM task
 # Currently compatible with CK7n (only the login text will be displayed in the TWRP UI, and it will be checked and copied. It is easy to make it compatible with other transmission devices!)
 # By @YZBruh
+# Values
 DIR=$(pwd)
 ARCH=$(uname -m)
 # Functions
+# Error function
 abort() {
 echo "Error!"
 rm -rf $DIR/recovery_rom
@@ -12,6 +14,7 @@ cleanup
 exit 1
 }
 
+# Cleaner function (values)
 cleanup() {
 unset DIR
 unset ARCH
@@ -19,10 +22,14 @@ unset pass
 unset sparse_super
 unset sparse
 unset get_rom
-unset unpack_rom
-unset get_source
+unset extract_rom
+unset source_dir
+unset destination_dir
+unset file_name
+unset compress
 }
 
+# Super image unpacker function
 sparse_super() {
 echo "Sparsing super image..."
 sparse=$(python3 lpunpack.py super.img super)
@@ -33,23 +40,30 @@ else
    abort
 fi
 rm -rf super.img super.unsparse.img
-mv odm_dlkm_a.img $dir/recovery_rom/odm_dlkm_a.img
-mv odm_dlkm_b.img $dir/recovery_rom/odm_dlkm_b.img
-mv vendor_dlkm_a.img $dir/recovery_rom/vendor_dlkm_a.img
-mv vendor_dlkm_b.img $dir/recovery_rom/vendor_dlkm_b.img
-mv product_a.img $dir/recovery_rom/product_a.img
-mv product_b.img $dir/recovery_rom/product_b.img
-mv system_a.img $dir/recovery_rom/system_a.img
-mv system_b.img $dir/recovery_rom/system_b.img
-mv system_ext_a.img $dir/recovery_rom/system_ext_a.img
-mv system_ext_b.img $dir/recovery_rom/system_ext_b.img
-mv vendor_a.img $dir/recovery_rom/vendor_a.img
-mv vendor_b.img $dir/recovery_rom/vendor_b.img
+cd super
+mv odm_dlkm_a.img $DIR/images/odm_dlkm_a.img
+mv odm_dlkm_b.img $DIR/images/odm_dlkm_b.img
+mv vendor_dlkm_a.img $DIR/images/vendor_dlkm_a.img
+mv vendor_dlkm_b.img $DIR/images/vendor_dlkm_b.img
+mv product_a.img $DIR/images/images/product_a.img
+mv product_b.img $DIR/images/product_b.img
+mv system_a.img $DIR/images/system_a.img
+mv system_b.img $DIR/images/system_b.img
+mv system_ext_a.img $DIR/images/system_ext_a.img
+mv system_ext_b.img $DIR/images/system_ext_b.img
+mv vendor_a.img $DIR/images/vendor_a.img
+mv vendor_b.img $DIR/images/vendor_b.img
+cd $DIR/recovery_rom/*
+rm -rf vendor_dlk*
+rm -rf super
 echo "Succesfull!"
 }
 
 # Starting process
 mkdir recovery_rom
+cd recovery_rom
+
+# İnstall packs
 echo "This bash script requires some packages to run. Do you want to install it? (y/n)"
 read -p "Enter option: " pass
 if [ $pass == "y" ]; then
@@ -60,14 +74,14 @@ if [ $pass == "y" ]; then
      pkg upgrade -y
      apt update
      apt upgrade -y
-     pkg install curl python3 zip -y
+     pkg install curl python3 zip git -y
      wget https://raw.githubusercontent.com/unix3dgforce/lpunpack/master/lpunpack.py
      chmod 777 lpunpack.py
    ;;
    x86_64|i386)
      sudo apt update
      sudo apt upgrade -y
-     sudo apt install curl python3 zip -y
+     sudo apt install curl python3 zip git -y
      wget https://raw.githubusercontent.com/unix3dgforce/lpunpack/master/lpunpack.py
      chmod 777 lpunpack.py
    ;;
@@ -82,23 +96,56 @@ else
       abort
    fi
 fi
+
+# Get stock rom 
 echo "Downloading stock ROM..."
-cd recovery_rom
 mkdir stock
 cd stock
-get_rom=$(wget xxx)
+get_rom=$(wget https://mor1.androidfilehost.com/dl/eNODIzeVavWO08qdxomftQ/1702795391/4279422670115727738/%5BHovatek%5D_Tecno_Camon_20_Pro_%28CK7n-H894ABC-T-GL-230111V246%29.zip)
 if [[ $get_rom ]]; then
    echo "Downloaded!"
 else
    echo "Download failed!"
    abort
 fi
-echo "Unpacking stock ROM..."
-unpack_rom=$(unzip *.zip && rm -rf *.zip)
-if [[ $unpack_rom ]]; then
-   echo "Unpacked!"
+
+# Extract downloaded rom
+echo "Extracting stock ROM..."
+extract_rom=$(unzip *.zip && rm -rf *.zip)
+if [[ $extract_rom ]]; then
+   echo "Extracted!"
 else
-   echo "Unpacking failed!"
+   echo "Extracting failed!"
    abort
 fi
-echo "İnstalling flasher source..."
+
+# Organize files
+cd $DIR/recovery_rom/stock/*
+sparse_super
+echo "Moving files (this process may take a long time)..."
+source_dir=$(pwd)
+destination_dir="$DIR/images"
+find "$source_dir" -type f -name "*.img" -exec mv {} "$destination_dir" \;
+cd $DIR
+rm -rf recovery_rom
+cd $DIR/images
+rm -rf preloader.img preloader_ck7n_h894.img preloader_emmc.img preloader_ufs.img userdata.img empty
+
+# Compress recovery ROM
+echo "Compressing..."
+cd $DIR
+file_name="CK7n_recovery_flashable_rom_A13"
+compress=$(zip -r $file_name *)
+if [[ $compress ]]; then
+   echo
+else
+   echo "Compressing failed!"
+   abort
+fi
+zip -d $file_name generate_zip.sh
+echo "Removing old files..."
+cd images
+rm -rf *
+cd $DIR
+echo "SUCCESFULL!"
+echo "ZİP file:"
