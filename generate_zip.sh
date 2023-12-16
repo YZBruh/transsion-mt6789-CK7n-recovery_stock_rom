@@ -7,6 +7,7 @@ ARCH=$(uname -m)
 # Functions
 abort() {
 echo "Error!"
+rm -rf $DIR/recovery_rom
 cleanup
 exit 1
 }
@@ -17,6 +18,9 @@ unset ARCH
 unset pass
 unset sparse_super
 unset sparse
+unset get_rom
+unset unpack_rom
+unset get_source
 }
 
 sparse_super() {
@@ -64,6 +68,8 @@ if [ $pass == "y" ]; then
      sudo apt update
      sudo apt upgrade -y
      sudo apt install curl python3 zip -y
+     wget https://raw.githubusercontent.com/unix3dgforce/lpunpack/master/lpunpack.py
+     chmod 777 lpunpack.py
    ;;
    *)
      echo "Architecture could not be determined!"
@@ -76,3 +82,23 @@ else
       abort
    fi
 fi
+echo "Downloading stock ROM..."
+cd recovery_rom
+mkdir stock
+cd stock
+get_rom=$(wget xxx)
+if [[ $get_rom ]]; then
+   echo "Downloaded!"
+else
+   echo "Download failed!"
+   abort
+fi
+echo "Unpacking stock ROM..."
+unpack_rom=$(unzip *.zip && rm -rf *.zip)
+if [[ $unpack_rom ]]; then
+   echo "Unpacked!"
+else
+   echo "Unpacking failed!"
+   abort
+fi
+echo "İnstalling flasher source..."
