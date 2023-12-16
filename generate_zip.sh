@@ -102,12 +102,6 @@ echo "Downloading stock ROM..."
 mkdir stock
 cd stock
 get_rom=$(wget https://mor1.androidfilehost.com/dl/eNODIzeVavWO08qdxomftQ/1702795391/4279422670115727738/%5BHovatek%5D_Tecno_Camon_20_Pro_%28CK7n-H894ABC-T-GL-230111V246%29.zip)
-if [[ $get_rom ]]; then
-   echo "Downloaded!"
-else
-   echo "Download failed!"
-   abort
-fi
 
 # Extract downloaded rom
 echo "Extracting stock ROM..."
