@@ -3,7 +3,7 @@
 - Enable actions.
 - Run workflow.
 - Get the `transfer.sh` link created in the uploading section of the file. Download the file.
- OR
+### OR
 - Clone this repository
 - And run;
 `cd transsion-mt6789-CK7n-recovery_stock_rom && chmod 777 generate_zip.sh && ./generate_zip.sh`
