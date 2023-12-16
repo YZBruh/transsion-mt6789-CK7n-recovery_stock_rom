@@ -127,6 +127,9 @@ echo "Compressing..."
 cd $DIR
 rm -rf .github
 rm -rf lpunpack
+rm -rf $DIR/images/vendor_dlkm.img
+rm -rf $DIR/images/odm_dlkm.img
+rm -rf $DIR/images/vendor_boot-debug.img
 file_name="CK7n_recovery_flashable_rom_A13"
 compress=$(zip -r $file_name *)
 if [[ $compress ]]; then
