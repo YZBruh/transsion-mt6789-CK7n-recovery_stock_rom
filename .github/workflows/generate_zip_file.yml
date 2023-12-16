@@ -100,12 +100,13 @@ jobs:
         rm -rf images/super_empty.img
         file_name="CK7n_recovery_flashable_rom_A13"
         zip -r "$file_name" *
-        mv "$file_name".zip /home/recovery_rom
+        mv "$file_name".zip /home/recovery_rom/CK7n_recovery_flashable_rom_A13.zip
         cd /home/recovery_rom
         rm -rf flasher
 
     - name: Uploading ROM transfer.sh
       run: |
+        cd /home/recovery_rom
         curl --upload-file ./CK7n_recovery_flashable_rom_A13.zip https://transfer.sh/CK7n_recovery_flashable_rom_A13.zip
         echo "Upload finished!"
         echo "Succesfull!"
