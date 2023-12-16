@@ -82,7 +82,7 @@ if [ $pass == "y" ]; then
      pkg upgrade -y
      apt update
      apt upgrade -y
-     pkg install curl zip unzip git android-tools -y
+     pkg install curl zip unzip git android-tools wget -y
    ;;
    x86_64|i386)
      sudo apt update
