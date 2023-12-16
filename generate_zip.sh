@@ -40,6 +40,7 @@ case $ARCH in
    x86_64|i386)
      cp $DIR/lpunpack/lpunpack.py $DIR/recovery_rom/stock/*
      sparse=$(python3 lpunpack.py super.img super)
+     rm -rf $DIR/recovery_rom/stock/*/lpunpack.py
      rm -rf $DIR/lpunpack
 esac
 if [[ $sparse ]]; then
