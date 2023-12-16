@@ -35,7 +35,7 @@ jobs:
 
     - name: Setting up environment
       run: |
-        sudo cd /home
+        cd /home
         sudo mkdir mode=777 recovery_rom
         cd recovery_rom
 
