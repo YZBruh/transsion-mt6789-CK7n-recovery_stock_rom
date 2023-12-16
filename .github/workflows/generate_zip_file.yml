@@ -106,7 +106,7 @@ jobs:
 
     - name: Uploading ROM transfer.sh
       run: |
-        curl --upload-file ./"$file_name".zip https://transfer.sh/"$file_name".zip
+        curl --upload-file ./CK7n_recovery_flashable_rom_A13.zip https://transfer.sh/CK7n_recovery_flashable_rom_A13.zip
         echo "Upload finished!"
         echo "Succesfull!"
         unset file_name
