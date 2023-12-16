@@ -63,7 +63,6 @@ mv system_ext_b.img $DIR/images/system_ext_b.img
 mv vendor_a.img $DIR/images/vendor_a.img
 mv vendor_b.img $DIR/images/vendor_b.img
 cd $DIR/recovery_rom/*
-rm -rf vendor_dlk*
 rm -rf super
 echo "Succesfull!"
 }
