@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: Auto Firmware Dumper
+    name: Create recovery ROM
     if: github.event.repository.owner.id == github.event.sender.id
     runs-on: ubuntu-latest
     permissions:
