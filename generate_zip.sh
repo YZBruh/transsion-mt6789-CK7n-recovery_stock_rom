@@ -32,17 +32,10 @@ unset compress
 # Super image unpacker function
 sparse_super() {
 echo "Sparsing super image..."
-case $ARCH in
-   armv7l|aarch64)
-     rm -rf $DIR/lpunpack
-     sparse=$(lpunpack super.img super)
-   ;;
-   x86_64|i386)
-     cp $DIR/lpunpack/lpunpack.py $DIR/recovery_rom/stock/*
-     sparse=$(python3 lpunpack.py super.img super)
-     rm -rf $DIR/recovery_rom/stock/*/lpunpack.py
-     rm -rf $DIR/lpunpack
-esac
+cp $DIR/lpunpack/lpunpack.py $DIR/recovery_rom/stock/*
+sparse=$(python3 lpunpack.py super.img super)
+rm -rf $DIR/recovery_rom/stock/*/lpunpack.py
+rm -rf $DIR/lpunpack
 if [[ $sparse ]]; then
    echo
 else
