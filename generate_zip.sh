@@ -48,7 +48,7 @@ mv odm_dlkm_a.img $DIR/images/odm_dlkm_a.img
 mv odm_dlkm_b.img $DIR/images/odm_dlkm_b.img
 mv vendor_dlkm_a.img $DIR/images/vendor_dlkm_a.img
 mv vendor_dlkm_b.img $DIR/images/vendor_dlkm_b.img
-mv product_a.img $DIR/images/images/product_a.img
+mv product_a.img $DIR/images/product_a.img
 mv product_b.img $DIR/images/product_b.img
 mv system_a.img $DIR/images/system_a.img
 mv system_b.img $DIR/images/system_b.img
