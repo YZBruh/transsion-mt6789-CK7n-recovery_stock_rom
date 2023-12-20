@@ -138,6 +138,8 @@ rm -rf $DIR/images/vendor_dlkm.img
 rm -rf $DIR/images/odm_dlkm.img
 rm -rf $DIR/images/vendor_boot-debug.img
 rm -rf $DIR/images/super_empty.img
+rm -rf $DIR/README.md
+rm -rf $DIR/generate_zip.sh
 file_name="CK7n_recovery_flashable_rom_A13"
 compress=$(zip -r $file_name *)
 if [[ $compress ]]; then
@@ -146,7 +148,6 @@ else
    echo "Compressing failed!"
    abort
 fi
-zip -d $file_name generate_zip.sh
 echo "Removing old files..."
 cd images
 rm -rf *
