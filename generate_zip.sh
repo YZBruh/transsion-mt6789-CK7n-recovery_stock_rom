@@ -2,7 +2,11 @@
 # Transsion MT6789 Recovery Stock ROM task
 # Currently compatible with CK7n (only the login text will be displayed in the TWRP UI, and it will be checked and copied. It is easy to make it compatible with other transmission devices!)
 # By @YZBruh
-# Values
+
+# Directly exit
+set -e
+
+# Variables
 DIR=$(pwd)
 ARCH=$(uname -m)
 # Functions
