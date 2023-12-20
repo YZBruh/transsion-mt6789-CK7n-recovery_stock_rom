@@ -4,6 +4,7 @@
 - And run;
 `cd transsion-mt6789-CK7n-recovery_stock_rom && chmod 777 generate_zip.sh && ./generate_zip.sh`
 - When the process is completed, the zip file is ready!
+- THIS PROJECT IS LICENSED WITH ECLIPSE PUBLIC LICENSE V2.0
 
 ## Installation
 - Flash it with custom recovery.
