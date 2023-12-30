@@ -1,11 +1,11 @@
 ui_print(" ");
 show_progress(0.200000, 0);
-ui_print("#############################");
-ui_print("* Tecno Camon 20 Pro (CK7n) *");
-ui_print("*    Flashable Stock ROM    *");
-ui_print("*        For Recovery       *");
-ui_print("*         By @YZBruh        *");
-ui_print("#############################");
+ui_print("-----------------------------");
+ui_print("|★Tecno Camon 20 Pro (CK7n)★|");
+ui_print("|     Flashable Stock ROM    |");
+ui_print("|     For Custom Recovery    |");
+ui_print("|★        By @YZBruh       ★|");
+ui_print("-----------------------------");
 show_progress(3.000000, 0);
 ui_print("WARNİNG: -Please read the flashing instructions carefully before proceeding this. And do at your own risk. Also make you update on Android 13 firmware version");
 ui_print("Setting up work folders...");
