@@ -149,7 +149,7 @@ rm -rf $DIR/images/vendor_boot-debug.img
 rm -rf $DIR/images/super_empty.img
 rm -rf $DIR/README.md
 rm -rf $DIR/generate_zip.sh
-file_name="CK7n_recovery_flashable_rom_A13"
+file_name="CK7n_recovery_flashable_rom_A13-"$(date +%Y%m%d)""
 compress=$(zip -r $file_name *)
 if [[ $compress ]]; then
    echo
