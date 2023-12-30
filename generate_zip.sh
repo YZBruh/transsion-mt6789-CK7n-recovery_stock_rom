@@ -15,7 +15,9 @@ ARCH=$(uname -m)
 # Error function
 abort() {
     echo "Error!"
-    rm -rf $DIR/recovery_rom
+    if [ -d $DIR/recovery_rom ]; then
+       file_cleaner
+    fi
     cleanup
     exit 1
 }
@@ -35,6 +37,11 @@ cleanup() {
     unset compress
 }
 
+# File cleaner (if error state) function
+file_cleaner() {
+    rm -rf $DIR/recovery_rom
+}
+
 # Super image unpacker function
 sparse_super() {
     echo "Sparsing super image..."
@@ -48,20 +55,9 @@ sparse_super() {
        echo "Sparsing failed!"
        abort
     fi
-    rm -rf super.img super.unsparse.img
+    rm -rf super.img super.unsparse.img || abort
     cd super
-    mv odm_dlkm_a.img $DIR/images/odm_dlkm_a.img
-    mv odm_dlkm_b.img $DIR/images/odm_dlkm_b.img
-    mv vendor_dlkm_a.img $DIR/images/vendor_dlkm_a.img
-    mv vendor_dlkm_b.img $DIR/images/vendor_dlkm_b.img
-    mv product_a.img $DIR/images/product_a.img
-    mv product_b.img $DIR/images/product_b.img
-    mv system_a.img $DIR/images/system_a.img
-    mv system_b.img $DIR/images/system_b.img
-    mv system_ext_a.img $DIR/images/system_ext_a.img
-    mv system_ext_b.img $DIR/images/system_ext_b.img
-    mv vendor_a.img $DIR/images/vendor_a.img
-    mv vendor_b.img $DIR/images/vendor_b.img
+    mv *.img $DIR/images || abort
     cd $DIR/recovery_rom/*
     rm -rf super
     echo "Succesfull!"
@@ -84,12 +80,12 @@ if [ $pass == "y" ]; then
      pkg upgrade -y
      apt update
      apt upgrade -y
-     pkg install curl zip unzip git python3 wget -y
+     pkg install curl zip unzip git python3 wget -y || abort
    ;;
    x86_64|i386)
      sudo apt update
      sudo apt upgrade -y
-     sudo apt install curl python3 zip git -y
+     sudo apt install curl python3 zip git -y || abort
    ;;
    *)
      echo "Architecture could not be determined!"
@@ -107,7 +103,7 @@ fi
 echo "Downloading stock ROM..."
 mkdir stock
 cd stock
-get_rom=$(wget https://mor1.androidfilehost.com/dl/eNODIzeVavWO08qdxomftQ/1702795391/4279422670115727738/%5BHovatek%5D_Tecno_Camon_20_Pro_%28CK7n-H894ABC-T-GL-230111V246%29.zip)
+get_rom=$(wget https://mor1.androidfilehost.com/dl/eNODIzeVavWO08qdxomftQ/1702795391/4279422670115727738/%5BHovatek%5D_Tecno_Camon_20_Pro_%28CK7n-H894ABC-T-GL-230111V246%29.zip || abort)
 
 # Extract downloaded rom
 echo "Extracting stock ROM..."
