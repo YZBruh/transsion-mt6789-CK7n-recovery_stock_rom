@@ -121,6 +121,7 @@ sparse_super
 echo "Moving files (this process may take a long time)..."
 source_dir=$(pwd)
 destination_dir="$DIR/images"
+mv $source_dir/logo.bin $destination_dir/logo.img
 find "$source_dir" -type f -name "*.img" -exec mv {} "$destination_dir" \;
 cd $DIR
 rm -rf recovery_rom
