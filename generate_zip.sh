@@ -103,7 +103,7 @@ fi
 echo "Downloading stock ROM..."
 mkdir stock
 cd stock
-get_rom=$(wget https://mor1.androidfilehost.com/dl/eNODIzeVavWO08qdxomftQ/1702795391/4279422670115727738/%5BHovatek%5D_Tecno_Camon_20_Pro_%28CK7n-H894ABC-T-GL-230111V246%29.zip || abort)
+get_rom=$(wget https://mva2.androidfilehost.com/dl/5FXV_Loid5PspC8op_c9Kw/1704054635/4279422670115727738/%5BHovatek%5D_Tecno_Camon_20_Pro_%28CK7n-H894ABC-T-GL-230111V246%29.zip || abort)
 
 # Extract downloaded rom
 echo "Extracting stock ROM..."
