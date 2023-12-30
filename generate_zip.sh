@@ -72,8 +72,10 @@ cd recovery_rom
 # İnstall packs
 echo "This bash script requires some packages to run. Do you want to install it? (y/n)"
 read -p "Enter option: " pass
+echo 
 if [ $pass == "y" ]; then
    echo "İnstalling packages..."
+   echo
    case $ARCH in
    armv7l|aarch64)
      pkg update
@@ -89,29 +91,38 @@ if [ $pass == "y" ]; then
    ;;
    *)
      echo "Architecture could not be determined!"
+     echo
    esac
 else
    if [ $pass == "n" ]; then
       echo "Package installation was skipped."
+      echo
    else
       echo "İnvalid option!"
+      echo
       abort
    fi
 fi
 
 # Get stock rom 
 echo "Downloading stock ROM..."
+echo
 mkdir stock
 cd stock
 get_rom=$(wget https://mva2.androidfilehost.com/dl/5FXV_Loid5PspC8op_c9Kw/1704054635/4279422670115727738/%5BHovatek%5D_Tecno_Camon_20_Pro_%28CK7n-H894ABC-T-GL-230111V246%29.zip || abort)
 
 # Extract downloaded rom
+echo
 echo "Extracting stock ROM..."
+echo
 extract_rom=$(unzip *.zip && rm -rf *.zip)
 if [[ $extract_rom ]]; then
+   echo
    echo "Extracted!"
 else
+   echo
    echo "Extracting failed!"
+   echo
    abort
 fi
 
@@ -119,6 +130,7 @@ fi
 cd $DIR/recovery_rom/stock/*
 sparse_super
 echo "Moving files (this process may take a long time)..."
+echo
 source_dir=$(pwd)
 destination_dir="$DIR/images"
 find "$source_dir" -type f -name "*.img" -exec mv {} "$destination_dir" \;
@@ -129,6 +141,7 @@ rm -rf preloader.img preloader_ck7n_h894.img preloader_emmc.img preloader_ufs.im
 
 # Compress recovery ROM
 echo "Compressing..."
+echo
 cd $DIR
 rm -rf $DIR/images/vendor_dlkm.img
 rm -rf $DIR/images/odm_dlkm.img
@@ -142,9 +155,11 @@ if [[ $compress ]]; then
    echo
 else
    echo "Compressing failed!"
+   echo
    abort
 fi
 echo "Removing old files..."
+echo
 cd images
 rm -rf *
 cd $DIR
