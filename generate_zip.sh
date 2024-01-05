@@ -73,7 +73,7 @@ cd recovery_rom
 echo "This bash script requires some packages to run. Do you want to install it? (y/n)"
 read -p "Enter option: " pass
 echo 
-if [ $pass == "y" ]; then
+if [ "$pass" == "y" ]; then
    echo "İnstalling packages..."
    echo
    case $ARCH in
@@ -94,7 +94,7 @@ if [ $pass == "y" ]; then
      echo
    esac
 else
-   if [ $pass == "n" ]; then
+   if [ "$pass" == "n" ]; then
       echo "Package installation was skipped."
       echo
    else
