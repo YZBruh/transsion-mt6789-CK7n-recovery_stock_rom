@@ -29,7 +29,6 @@ cleanup() {
     unset pass
     unset sparse_super
     unset sparse
-    unset get_rom
     unset extract_rom
     unset source_dir
     unset destination_dir
@@ -109,7 +108,7 @@ echo "Downloading stock ROM..."
 echo
 mkdir stock
 cd stock
-get_rom=$(wget https://mva2.androidfilehost.com/dl/5FXV_Loid5PspC8op_c9Kw/1704054635/4279422670115727738/%5BHovatek%5D_Tecno_Camon_20_Pro_%28CK7n-H894ABC-T-GL-230111V246%29.zip || abort)
+wget https://mde1.androidfilehost.com/dl/4mfkxk2WW00PI4bppd4rNQ/1704570660/4279422670115727738/%5BHovatek%5D_Tecno_Camon_20_Pro_%28CK7n-H894ABC-T-GL-230111V246%29.zip || abort
 
 # Extract downloaded rom
 echo
