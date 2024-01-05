@@ -29,7 +29,6 @@ cleanup() {
     unset pass
     unset sparse_super
     unset sparse
-    unset extract_rom
     unset source_dir
     unset destination_dir
     unset file_name
@@ -114,8 +113,8 @@ wget https://mde1.androidfilehost.com/dl/4mfkxk2WW00PI4bppd4rNQ/1704570660/42794
 echo
 echo "Extracting stock ROM..."
 echo
-extract_rom=$(unzip *.zip && rm -rf *.zip)
-if [[ $extract_rom ]]; then
+unzip *.zip && rm -rf *.zip
+if [ "$?" == "0" ]; then
    echo
    echo "Extracted!"
 else
