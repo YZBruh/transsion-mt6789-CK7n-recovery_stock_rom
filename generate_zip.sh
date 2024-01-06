@@ -42,6 +42,7 @@ file_cleaner() {
 
 # Super image unpacker function
 sparse_super() {
+    echo
     echo "Sparsing super image..."
     cp $DIR/lpunpack/lpunpack.py $DIR/recovery_rom/stock/*
     sparse=$(python3 lpunpack.py super.img super)
@@ -103,6 +104,7 @@ else
 fi
 
 # Get stock rom 
+echo
 echo "Downloading stock ROM..."
 echo
 mkdir stock
@@ -127,6 +129,7 @@ fi
 # Organize files
 cd $DIR/recovery_rom/stock/*
 sparse_super
+echo
 echo "Moving files (this process may take a long time)..."
 echo
 source_dir=$(pwd)
