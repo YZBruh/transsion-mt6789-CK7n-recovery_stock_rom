@@ -8,8 +8,7 @@
 
 ## Installation
 - Flash it with custom recovery.
-- Format `data` after flash as `F2FS`.
-- And enjoy!
+- Enjoy!
 
 ## Warning and features
 - WARNİNG: Please read the flashing instructions carefully before proceeding this. And do at your own risk. Also make you update on Android 13 firmware version.
