@@ -1,0 +1,47 @@
+#!/sbin/sh
+# Tecno Camon 20 Pro (CK7n) recovery flashable stock ROM - By YZBruh
+
+export ZIPFILE="$3"
+export OUTFD="/proc/self/fd/$2"
+export TMP="/tmp/CK7n"
+if [ -d /data/systmp ]; then
+    rm -rf /data/systmp
+    mkdir /data/systmp
+else
+    mkdir /data/systmp
+fi
+mkdir $TMP
+
+setenforce 0
+
+ui_print() {
+  echo "ui_print $1" > "$OUTFD";
+  echo "ui_print" > "$OUTFD";
+}
+
+abort() {
+  ui_print "$1";
+  exit 1
+}
+
+set_progress() { echo "set_progress $1" > "$OUTFD"; }
+
+set_progress 0.30;
+ui_print " ";
+ui_print "==> Extracting files... (It will last long)..."
+unzip -o "$ZIPFILE" -d "$TMP";
+chmod -R 777 $TMP
+
+if [ -f $TMP/scripts/verify.sh ]; then
+    ./$TMP/scripts/verify.sh
+else
+    abort "Main sha256 checker script not found!"
+fi
+
+if [ -f $TMP/scripts/flash.sh ]; then
+    ./$TMP/scripts/flash.sh
+else
+    abort "Main flasher script not found!"
+fi
+
+# end of update-binary
