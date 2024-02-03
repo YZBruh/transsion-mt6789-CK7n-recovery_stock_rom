@@ -20,6 +20,19 @@ echo "Extracting..."
 unzip *.zip
 rm -rf *.zip
 echo "Moving images..."
+if [[ $(find . -type f -maxdepth 1 -name '*.img') ]]; then
+    cd $(pwd)
+elif [[ $(find . -type f -maxdepth 2 -name '*.img') ]]; then
+    cd *
+else
+    read -p "Oops! Their images were not found. Please enter its path (extract output may be a clue): " IMAGE_DIR
+    if [ -d "$IMAGE_DIR" ]; then
+        cd "$IMAGE_DIR"
+    else
+        echo "Directory not found!.. Aborting"
+        exit 1
+    fi
+fi
 mv *.img $DIR/images/
 mv logo.bin $DIR/images/
 echo "Removing unnecessary images..."
