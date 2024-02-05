@@ -11,6 +11,9 @@ LINK="$1" # firmware link
 
 # Start progress
 clear
+if [ -d $(pwd)/.github ]; then
+    rm -r .github
+fi
 echo "--- Generating zip file... ---"
 mkdir temp
 echo "Downloading stock ROM..."
