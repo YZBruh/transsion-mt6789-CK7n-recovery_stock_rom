@@ -1,0 +1,33 @@
+name: Generate Zip File
+
+on:
+  workflow_dispatch:
+    inputs:
+      ROM_URL:
+        description: 'ROM directly download link'
+        required: true
+        default: ''
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+
+    - name: Check Out
+      uses: actions/checkout@v3
+
+    - name: Make zip file
+      run: |
+        cd /home && sudo mkdir file && sudo chmod 777 file && cd file
+        sudo apt update && sudo apt install -y zip gzip curl wget git
+        git clone https://github.com/YZBruh/transsion-mt6789-CK7n-recovery_stock_rom -b master
+        cd transsion-mt6789-CK7n-recovery_stock_rom && mv scripts/generate_zip.sh $(pwd) && chmod 777 generate_zip.sh && ./generate_zip.sh ${{ github.event.inputs.ROM_URL }}
+
+    - name: Uploading zip file (transfer.sh)
+      run: |
+        NAME="CK7N*.zip"
+        URL=$(echo "https://transfer.sh/${NAME}" > url.txt)
+        curl --upload-file ./${NAME} $(cat url.txt)
+        
